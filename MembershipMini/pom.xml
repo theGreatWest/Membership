@@ -7,6 +7,7 @@
 	<name>MembershipMini</name>
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
+	
 	<properties>
 		<java-version>21</java-version>
 		<org.springframework-version>5.2.12.RELEASE</org.springframework-version>
@@ -14,6 +15,8 @@
 		<org.aspectj-version>1.9.6</org.aspectj-version>
 		<org.slf4j-version>1.6.6</org.slf4j-version>
 	</properties>
+	
+	
 	<dependencies>
 		<!-- Spring -->
 		<dependency>
@@ -161,11 +164,11 @@
 		</dependency>
 		
 		<!-- DB 관련 라이브러리 -->
-		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+		<!-- Oracle JDBC -->
 		<dependency>
-		    <groupId>mysql</groupId>
-		    <artifactId>mysql-connector-java</artifactId>
-		    <version>8.0.31</version>
+		  <groupId>com.oracle.database.jdbc</groupId>
+		  <artifactId>ojdbc8</artifactId>
+		  <version>21.1.0.0</version>
 		</dependency>
 		
 		<dependency>
