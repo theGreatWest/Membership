@@ -12,7 +12,7 @@
 	
 	<!-- Application Loggers -->
 	<logger name="com.mini.membership">
-		<level value="info" />
+		<level value="trace" />
 	</logger>
 	
 	<!-- 3rdparty Loggers -->
