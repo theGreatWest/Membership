@@ -175,7 +175,7 @@
                     <button class="btn btn-secondary" type="button" onclick="cancelVerification()">취소</button>
                     <button class="btn btn-primary" type="button" onclick="verifyEmailCode()" style="background-color: #002C5F; color: white; border-color: #002C5F;">완료</button>
                   </div>
-                </div>
+           </div>
         </div>
       </div>
       
@@ -321,7 +321,7 @@
           emailVerified = false; // 초기화
           signupBtn.disabled = true;
 
-          fetch("/membership/api/email/send", {
+          fetch("/api/email/send", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ email })
@@ -333,7 +333,7 @@
           const email = emailInput.value;
           const code = document.getElementById("emailCodeInput").value;
 
-          fetch("/membership/api/email/verify", {
+          fetch("/api/email/verify", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ email, code })

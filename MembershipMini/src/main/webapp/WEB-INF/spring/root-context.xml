@@ -13,17 +13,17 @@
 	<import resource="mybatis-context.xml"/>
 	<import resource="security-context.xml"/>
 	
-	<!-- JavaMailSender 설정 -->
+	<!-- JavaMailSender 설정 (Naver) -->
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-	    <property name="host" value="smtp.gmail.com"/> <!-- Gmail SMTP 예시 -->
-	    <property name="port" value="587"/>
-	    <property name="username" value="kyjinterview@gmail.com"/> <!-- Gmail 계정 -->
-	    <property name="password" value="wwftywtiphhpfzcu"/>   <!-- 앱 비밀번호 -->
+	    <property name="host" value="smtp.naver.com"/>
+	    <property name="port" value="465"/>
+	    <property name="username" value="kjuzoojuk@naver.com"/> <!-- 네이버 이메일 -->
+	    <property name="password" value="GPBC7B6RU9H6"/>       <!-- 네이버 앱 비밀번호 -->
 	    <property name="javaMailProperties">
 	        <props>
 	            <prop key="mail.smtp.auth">true</prop>
-	            <prop key="mail.smtp.starttls.enable">true</prop>
-	            <prop key="mail.smtp.ssl.trust">smtp.gmail.com</prop>
+	            <prop key="mail.smtp.ssl.enable">true</prop>
+	            <prop key="mail.smtp.ssl.trust">smtp.naver.com</prop>
 	        </props>
 	    </property>
 	</bean>
