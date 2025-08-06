@@ -333,7 +333,7 @@
           const email = emailInput.value;
           const code = document.getElementById("emailCodeInput").value;
 
-          fetch("/auth/email/verify-code", {
+          fetch("/api/email/verify", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ email, code })
