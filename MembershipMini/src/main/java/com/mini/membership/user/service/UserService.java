@@ -19,8 +19,11 @@ public class UserService {
 	@Autowired
 	private UserMapper userMapper;
 	
-	@Autowired
-	private PasswordService passwordService;
+	private final PasswordService passwordService;
+    @Autowired
+    public UserService(PasswordService passwordService) {
+        this.passwordService = passwordService;
+    }
 	
 //  회원가입 
 //	@Transactional : 쿼리 처리중에 예외 발생시 자동으로 roll-back 시켜주는 어노테이션(AOP)
