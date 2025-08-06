@@ -42,4 +42,4 @@ jobs:
           key: ${{ secrets.EC2_KEY }}
           script: |
             sudo mv /home/ubuntu/*.war /opt/tomcat9/webapps/  # Tomcat 웹앱 경로로 WAR 이동
-            sudo systemctl restart tomcat9                     # Tomcat 서버 재시작
+            sudo /opt/tomcat9/bin/startup.sh                     # Tomcat 서버 재시작
