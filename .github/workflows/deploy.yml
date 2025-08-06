@@ -20,6 +20,7 @@ jobs:
 
       # 3. Maven으로 빌드 및 테스트 실행
       - name: Build with Maven
+        working-directory: MembershipMini
         run: mvn clean package  # 프로젝트 정리(clean) 후 패키징(war 생성)
 
       # 4. 생성된 WAR 파일을 EC2 서버로 전송
