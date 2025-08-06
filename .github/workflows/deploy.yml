@@ -18,7 +18,7 @@ jobs:
         with:
           java-version: 11
 
-      # 3. Maven으로 빌드 및 테스트 실행
+      # 3. Maven으로 빌드 및 테스트 실행 (MembershipMini 폴더에서 실행)
       - name: Build with Maven
         working-directory: MembershipMini
         run: mvn clean package  # 프로젝트 정리(clean) 후 패키징(war 생성)
@@ -30,8 +30,8 @@ jobs:
           host: ${{ secrets.EC2_HOST }}       # EC2 퍼블릭 IP (GitHub Secrets)
           username: ubuntu                    # EC2 로그인 사용자명
           key: ${{ secrets.EC2_KEY }}         # SSH 접속용 PEM 키 (GitHub Secrets)
-          source: "/MembershipMini/target/membership-1.0.0-BUILD-SNAPSHOT.war"               # 로컬 빌드 산출물 경로
-          target: "/home/ubuntu/"               # EC2 내 전송 위치
+          source: "MembershipMini/target/membership-1.0.0-BUILD-SNAPSHOT.war" # 상대 경로로 변경
+          target: "/home/ubuntu/"             # EC2 내 전송 위치
 
       # 5. EC2 서버에 접속해 WAR 파일을 Tomcat 웹앱 폴더로 이동 후 Tomcat 재시작
       - name: Deploy on EC2
