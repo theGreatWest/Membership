@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.mini.membership.email.mapper.EmailMapper">
+	<!-- EMAIL_AUTH_TBL -->
+	<resultMap type="com.mini.membership.user.dto.EmailAuth" id="emailAuthResultMap">
+	    <result property="email" column="EMAIL"/>
+	    <result property="authCode" column="AUTH_CODE"/>
+	</resultMap>
+	
+	<!-- 이메일 인증 코드 저장 -->
+	<insert id="setEmailVerifyCode" parameterType="com.mini.membership.user.dto.EmailAuth">
+		INSERT INTO EMAIL_AUTH_TBL 
+			(email, auth_code, expire_time, created_at)
+		VALUES 
+			(#{email}, #{authCode}, DATE_ADD(NOW(), INTERVAL 1 MINUTE), NOW())
+	</insert>
+	
+	<!-- 이메일 인증 코드 불러오기 -->
+	<select id="verify" parameterType="com.mini.membership.user.dto.EmailAuth" resultType="int">
+		SELECT COUNT(*) FROM EMAIL_AUTH_TBL
+		WHERE 
+			email = #{email}
+			AND auth_code = #{authCode}
+			AND expire_time > CURRENT_TIMESTAMP
+	</select>
+	
+	<!-- 이메일 인증이 만료된 row 삭제 -->
+	<delete id="deleteExpiredAuthCodes">
+		DELETE FROM EMAIL_AUTH_TBL
+    	WHERE expire_time < CURRENT_TIMESTAMP
+	</delete>
+</mapper>
