@@ -22,7 +22,7 @@
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"
       p:dataSource-ref="dataSource"
       p:typeAliasesPackage="com.mini.membership.user.dto, com.mini.membership.email.dto"
-      p:mapperLocations="classpath:/mappers/user/*.xml, classpath:/mappers/email/*.xml"/>
+      p:mapperLocations="classpath:/mappers/user/*.xml; classpath:/mappers/email/*.xml"/>
 	
 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate"
 		c:sqlSessionFactory-ref="sqlSessionFactory"
