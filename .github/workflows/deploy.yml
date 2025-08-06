@@ -41,5 +41,6 @@ jobs:
           username: ubuntu
           key: ${{ secrets.EC2_KEY }}
           script: |
+            sudo rm -rf /opt/tomcat9/webapps/membership*
             sudo mv /home/ubuntu/MembershipMini/target/*.war /opt/tomcat9/webapps/  # Tomcat 웹앱 경로로 WAR 이동
             sudo /opt/tomcat9/bin/startup.sh                     # Tomcat 서버 재시작
