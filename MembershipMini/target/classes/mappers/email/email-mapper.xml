@@ -3,13 +3,13 @@
 
 <mapper namespace="com.mini.membership.email.mapper.EmailMapper">
 	<!-- EMAIL_AUTH_TBL -->
-	<resultMap type="com.mini.membership.user.dto.EmailAuth" id="emailAuthResultMap">
+	<resultMap type="com.mini.membership.email.dto.EmailAuth" id="emailAuthResultMap">
 	    <result property="email" column="EMAIL"/>
 	    <result property="authCode" column="AUTH_CODE"/>
 	</resultMap>
 	
 	<!-- 이메일 인증 코드 저장 -->
-	<insert id="setEmailVerifyCode" parameterType="com.mini.membership.user.dto.EmailAuth">
+	<insert id="setEmailVerifyCode" parameterType="com.mini.membership.email.dto.EmailAuth">
 		INSERT INTO EMAIL_AUTH_TBL 
 			(email, auth_code, expire_time, created_at)
 		VALUES 
@@ -17,7 +17,7 @@
 	</insert>
 	
 	<!-- 이메일 인증 코드 불러오기 -->
-	<select id="verify" parameterType="com.mini.membership.user.dto.EmailAuth" resultType="int">
+	<select id="verify" parameterType="com.mini.membership.email.dto.EmailAuth" resultType="int">
 		SELECT COUNT(*) FROM EMAIL_AUTH_TBL
 		WHERE 
 			email = #{email}
@@ -28,6 +28,6 @@
 	<!-- 이메일 인증이 만료된 row 삭제 -->
 	<delete id="deleteExpiredAuthCodes">
 		DELETE FROM EMAIL_AUTH_TBL
-    	WHERE expire_time < CURRENT_TIMESTAMP
+    	WHERE expire_time &lt; CURRENT_TIMESTAMP
 	</delete>
 </mapper>
