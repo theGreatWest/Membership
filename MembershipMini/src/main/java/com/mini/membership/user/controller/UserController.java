@@ -64,7 +64,10 @@ public class UserController {
 		model.addAttribute("cards", cards);
 		
 		List<Point> points = service.getPoints(result.getUserId());
-		int totPoint = points.stream().mapToInt(Point::getAmount).sum();
+		int totPoint = 0;
+		for(Point obj : points) {
+			totPoint += obj.getAmount();
+		}
 		model.addAttribute("totPoint", totPoint);
 		
 		return "jsps/my_page";
