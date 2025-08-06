@@ -4,9 +4,9 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.mini.membership.email.dto.EmailAuth;
 import com.mini.membership.user.dto.Car;
 import com.mini.membership.user.dto.Card;
-import com.mini.membership.user.dto.EmailAuth;
 import com.mini.membership.user.dto.Point;
 import com.mini.membership.user.dto.SignIn;
 import com.mini.membership.user.dto.User;
