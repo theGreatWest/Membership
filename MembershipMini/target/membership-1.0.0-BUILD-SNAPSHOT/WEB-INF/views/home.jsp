@@ -191,7 +191,7 @@
                 <button class="btn-close btn-close-white" type="button" data-bs-dismiss="modal" aria-label="btn-close"></button>
               </div>
               <div class="modal-body px-4">
-                <form class="needs-validation" novalidate>
+                <form class="needs-validation" action="${path }/user/sign_up" method="post" novalidate>
                   <div class="mb-3">
                     <input class="form-control" type="text" placeholder="Full name" required>
                   </div>
@@ -321,7 +321,7 @@
           emailVerified = false; // 초기화
           signupBtn.disabled = true;
 
-          fetch("/auth/email/send-code", {
+          fetch("/api/email/send", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ email })
@@ -333,7 +333,7 @@
           const email = emailInput.value;
           const code = document.getElementById("emailCodeInput").value;
 
-          fetch("/auth/email/verify-code", {
+          fetch("/api/email/verify", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ email, code })
@@ -363,30 +363,6 @@
           modal.hide();
           checkSignupAvailability();
         };
-        
-     	// 회원가입(Sign up) 버튼 클릭 → DB 저장 후 my-page.jsp로 이동
-        signupBtn.addEventListener("click", function (event) {
-          event.preventDefault();
-
-          const fullName = document.querySelector('input[placeholder="Full name"]').value;
-          const email = emailInput.value;
-          const password = passwordInput.value;
-
-          fetch("/auth/signup", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ fullName, email, password })
-          })
-            .then(res => {
-              if (!res.ok) throw new Error("회원가입 실패! 다시 시도해주세요.");
-              return res.json();
-            })
-            .then(data => { // 회원가입 성공 
-              window.location.href = `${contextPath}/my_page`;
-            })
-            .catch(err => {});
-        });
-     
       });
     </script>
    	

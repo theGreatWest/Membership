@@ -33,21 +33,20 @@
 	    <result property="status" column="STATUS"/>
 	</resultMap>
 	
-	<!-- EMAIL_AUTH_TBL -->
-	<!-- <resultMap type="com.mini.membership.user.dto.EmailAuth" id="emailAuthResultMap">
-	    <id property="authId" column="AUTH_ID"/>
-	    <result property="email" column="EMAIL"/>
-	    <result property="authCode" column="AUTH_CODE"/>
-	    <result property="isVerified" column="IS_VERIFIED"/>
-	    <result property="expireTime" column="EXPIRE_TIME"/>
-	    <result property="createdAt" column="CREATED_AT"/>
-	</resultMap> -->
+	<!-- POINT_TBL -->
+	<resultMap type="com.mini.membership.user.dto.Point" id="pointResultMap">
+	    <id property="pointId" column="point_id" />
+	    <result property="userId" column="user_id" />
+	    <result property="type" column="type" />
+	    <result property="amount" column="amount" />
+	    <result property="processedAt" column="processed_at" />
+	</resultMap>
     
     <!-- SQL 코드 -->
     <!-- 회원 정보 -->
     <!-- 이메일/비밀번호를 이용해 특정 회원 정보 반환 -->
-   	<select id="selectTargetUser" parameterType="com.mini.membership.user.dto.SignIn" resultMap="userResultMap">
-   		SELECT * FROM USER_TBL WHERE email = #{email} and password = #{password}
+   	<select id="selectTargetUser" parameterType="java.lang.String" resultMap="userResultMap">
+   		SELECT * FROM USER_TBL WHERE email = #{email}
    	</select>
     
     <!-- 회원가입 -->
@@ -79,4 +78,14 @@
 	    WHERE user_id = #{userId}
 	    ORDER BY application_date DESC
 	</select>
+	
+	
+	<!-- 포인트 정보 -->
+	<!-- 특정 회원이 가지고 있는 모든 포인트 조회 -->
+   	<select id="getPoints" parameterType="int" resultMap="pointResultMap">
+	    SELECT * FROM POINT_TBL 
+	    WHERE user_id = #{userId}
+	</select>
+
+	
 </mapper>
