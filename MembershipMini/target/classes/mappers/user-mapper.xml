@@ -51,8 +51,8 @@
     
     <!-- 회원가입 -->
     <insert id="signUp" parameterType="com.mini.membership.dto.Signup">
-	    INSERT INTO USER_TBL (user_id, name, email, password)
-	    VALUES (user_seq.NEXTVAL, #{name}, #{email}, #{password})
+	    INSERT INTO USER_TBL (name, email, password)
+	    VALUES (#{name}, #{email}, #{password})
 	</insert>
     
     <!-- 회원 정보 업데이트 -->
