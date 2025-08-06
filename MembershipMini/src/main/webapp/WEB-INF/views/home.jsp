@@ -321,7 +321,7 @@
           emailVerified = false; // 초기화
           signupBtn.disabled = true;
 
-          fetch("/api/email/send", {
+          fetch("${path}/api/email/send", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ email })
@@ -333,7 +333,7 @@
           const email = emailInput.value;
           const code = document.getElementById("emailCodeInput").value;
 
-          fetch("/api/email/verify", {
+          fetch("${path}/api/email/verify", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ email, code })
