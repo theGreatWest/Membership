@@ -31,7 +31,7 @@ jobs:
           username: ubuntu                    # EC2 로그인 사용자명
           key: ${{ secrets.EC2_KEY }}         # SSH 접속용 PEM 키 (GitHub Secrets)
           source: "/home/runner/work/Membership/Membership/MembershipMini/target/membership-1.0.0-BUILD-SNAPSHOT.war"               # 로컬 빌드 산출물 경로
-          target: "/home/ubuntu"               # EC2 내 전송 위치
+          target: "/home/ubuntu/"               # EC2 내 전송 위치
 
       # 5. EC2 서버에 접속해 WAR 파일을 Tomcat 웹앱 폴더로 이동 후 Tomcat 재시작
       - name: Deploy on EC2
@@ -41,5 +41,5 @@ jobs:
           username: ubuntu
           key: ${{ secrets.EC2_KEY }}
           script: |
-            sudo mv /home/ubuntu/MembershipMini/target/*.war /opt/tomcat9/webapps/  # Tomcat 웹앱 경로로 WAR 이동
+            sudo mv /home/ubuntu/*.war /opt/tomcat9/webapps/  # Tomcat 웹앱 경로로 WAR 이동
             sudo /opt/tomcat9/bin/startup.sh                     # Tomcat 서버 재시작
