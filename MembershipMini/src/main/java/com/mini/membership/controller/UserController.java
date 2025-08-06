@@ -1,12 +1,15 @@
 package com.mini.membership.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +26,7 @@ import com.mini.membership.dto.Point;
 import com.mini.membership.dto.SignIn;
 import com.mini.membership.dto.Signup;
 import com.mini.membership.dto.User;
+import com.mini.membership.service.EmailService;
 import com.mini.membership.service.UserService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -33,6 +37,9 @@ import lombok.extern.slf4j.Slf4j;
 public class UserController {
 	@Autowired
 	private UserService service;
+	
+	@Autowired
+    private EmailService emailService;
 	
 	private Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
@@ -92,9 +99,6 @@ public class UserController {
 	    return "redirect:/";
 	}
 	
-//	이메일 인증 
-	
-	
 	
 //  회원가입 
 	@PostMapping("/sign_up")
@@ -111,6 +115,35 @@ public class UserController {
 		service.signUp(input);
 		
 		return "home";
+	}
+	
+//	새 비밀번호 발급받기 
+	@PostMapping("/get_new_password")
+	public ResponseEntity<Map<String, Object>> getNewPassword(
+			@RequestParam String email
+	) {
+		Map<String, Object> response = new HashMap<>();
+		
+		// 존재하는지 확인
+		User user = service.signIn(email);
+		if(user==null) return null;
+		
+	
+		// 새 비밀번호 발급
+		String newPWD = service.generateNewPassword();
+		
+		// 새 비밀번호 암호화 
+		user.setPassword(service.encodePassword(newPWD));
+			
+		// 새 비밀번호 db에 저장 
+		service.updateNewPWD(user);
+			
+		// 새 비밀번호 프론트로 
+		response.put("success", true);
+		response.put("message", "새 비밀번호가 생성되었습니다. 이메일로 발송을 진행하세요.");
+		response.put("newPassword", newPWD);
+		    
+		return ResponseEntity.ok(response);
 	}
 	
 }

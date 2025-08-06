@@ -1,5 +1,6 @@
 package com.mini.membership.service;
 
+import java.security.SecureRandom;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +18,15 @@ import com.mini.membership.mapper.UserMapper;
 @Transactional(rollbackFor = Exception.class)
 @Service
 public class UserService {
+	private final PasswordService passwordService;
+	private static final String LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+    private static final String SPECIAL = "!@#$%^&*()-_=+[]{};:,.<>?";
+    private static final String ALL = LETTERS + SPECIAL;
+    private static final SecureRandom random = new SecureRandom();
+	
 	@Autowired
 	private UserMapper userMapper;
 	
-	private final PasswordService passwordService;
     @Autowired
     public UserService(PasswordService passwordService) {
         this.passwordService = passwordService;
@@ -65,5 +71,38 @@ public class UserService {
 //	비밀번호 검증
 	public boolean verifyPassword(String userInputPassword, String encodedPassword) {
 		return passwordService.verify(userInputPassword, encodedPassword);
+	}
+	
+// 새 비밀번호 생성
+    public String generateNewPassword() {
+        StringBuilder password = new StringBuilder();
+
+        // 조건 충족: 영어 1개, 특수문자 1개 포함
+        password.append(LETTERS.charAt(random.nextInt(LETTERS.length())));
+        password.append(SPECIAL.charAt(random.nextInt(SPECIAL.length())));
+
+        // 나머지 6자리 랜덤 추가
+        for (int i = 0; i < 6; i++) {
+            password.append(ALL.charAt(random.nextInt(ALL.length())));
+        }
+
+        // 순서 섞기
+        return shuffle(password.toString());
+    }
+
+    private String shuffle(String input) {
+        char[] array = input.toCharArray();
+        for (int i = array.length - 1; i > 0; i--) {
+            int j = random.nextInt(i + 1);
+            char temp = array[i];
+            array[i] = array[j];
+            array[j] = temp;
+        }
+        return new String(array);
+    }
+    
+//  새 비밀번호 db에 저장
+	public void updateNewPWD(User userInput) {
+		userMapper.updateUser(userInput);
 	}
 }

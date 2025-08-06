@@ -153,13 +153,13 @@
               <form class="needs-validation p-2" novalidate>
                 <div class="mb-3 pb-1">
                   <label class="form-label" for="recovery-email">Enter your email address</label>
-                  <input class="form-control" type="email" required id="recovery-email">
+                  <input class="form-control" type="email" name="email" required id="recovery-email">
                   <div class="invalid-feedback">Please provide a valid email address!</div>
                 </div>
                 <!-- 버튼 -->
                 <div class="text-end">
                   <button type="button" class="btn" style="background-color: white; border: 1px solid #014088; color: #014088; margin-right:10px;" onclick="window.location.href='${path}/'">Cancel</button>
-                  <button id="make_new_password" class="btn btn-primary" type="submit" disabled>Get new password</button>
+                  <button id="make_new_password" class="btn btn-primary" type="submit"  onclick="requestNewPassword()" disabled>Get new password</button>
                 </div>
               </form>
             </div>
@@ -179,44 +179,65 @@
     <script src="${path}/resources/js/theme.min.js"></script>
 
     <script>
-      const emailInput = document.getElementById("recovery-email");
-      const getNewPasswordBtn = document.getElementById("make_new_password");
-
-      // 이메일 형식 검증 함수 (간단한 정규식)
-      function isValidEmail(email) {
-        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-      }
-
-      // 입력할 때마다 버튼 활성화/비활성화 제어
-      emailInput.addEventListener("input", function () {
-        if (isValidEmail(emailInput.value)) {
-          getNewPasswordBtn.disabled = false; 
-        } else {
-          getNewPasswordBtn.disabled = true;
-        }
-      });
-      
-      document.getElementById("make_new_password").addEventListener("click", function (event) {
-        event.preventDefault(); // 기본 submit 방지
-        const email = emailInput.value;
-        
-        fetch("/auth/password-recovery", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email })
-        })
-          .then(res => {
-            if (!res.ok) throw new Error("이메일이 존재하지 않습니다.");
-            return res.json();
-          })
-          .then(data => {
-            alert("비밀번호 재설정 메일을 보냈습니다.");
-            window.location.href = "home"; // 로그인 페이지로 이동 STS 작업 시 "/home" 으로 설정하면 됨
-          })
-          .catch(err => {
-            alert(err.message);
-          });
-      });
-      </script>
+	  const emailInput = document.getElementById("recovery-email");
+	  const getNewPasswordBtn = document.getElementById("make_new_password");
+	
+	  // 이메일 형식 검증
+	  function isValidEmail(email) {
+	    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+	  }
+	
+	  // 버튼 활성화/비활성화
+	  emailInput.addEventListener("input", function () {
+	    getNewPasswordBtn.disabled = !isValidEmail(emailInput.value);
+	  });
+	
+	  // 새 비밀번호 발급 및 이메일 전송
+	  function requestNewPassword() {
+	    const email = emailInput.value;
+	
+	    // 1단계: 새 비밀번호 발급
+	    fetch(`${path}/user/get_new_password?email=${encodeURIComponent(email)}`, {
+	      method: "POST"
+	    })
+	      .then(res => res.json())
+	      .then(data => {
+	        if (!data.success) {
+	          alert("비밀번호 발급 실패: " + data.message);
+	          return;
+	        }
+	
+	        // 2단계: 새 비밀번호를 이메일로 전송
+	        fetch("${path}/api/email/send", {
+	          method: "POST",
+	          headers: { "Content-Type": "application/json" },
+	          body: JSON.stringify({ email })
+	        })
+	          .then(res => res.json())
+	          .then(emailData => {
+	            if (emailData.success) {
+	              alert("새 비밀번호가 이메일로 전송되었습니다.");
+	              window.location.href = `${path}/`; // 홈으로 이동
+	            } else {
+	              alert("이메일 전송 실패: " + emailData.message);
+	            }
+	          })
+	          .catch(err => {
+	            console.error("이메일 전송 중 오류:", err);
+	            alert("이메일 전송 중 문제가 발생했습니다.");
+	          });
+	      })
+	      .catch(err => {
+	        console.error("비밀번호 발급 중 오류:", err);
+	        alert("비밀번호 발급 중 문제가 발생했습니다.");
+	      });
+	  }
+	
+	  // 기존 submit 방지 + requestNewPassword 호출
+	  getNewPasswordBtn.addEventListener("click", function (event) {
+	    event.preventDefault();
+	    requestNewPassword();
+	  });
+	</script>
   </body>
 </html>
