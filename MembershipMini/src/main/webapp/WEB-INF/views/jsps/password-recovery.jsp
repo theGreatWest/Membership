@@ -194,7 +194,7 @@
 	
 	  // 새 비밀번호 발급 및 이메일 전송
 	  function requestNewPassword() {
-	    const email = emailInput.value;
+		  const email = document.getElementById("recovery-email").value;
 	
 	    // 1단계: 새 비밀번호 발급
 	    fetch(`${path}/user/generate_new_password?email=${email}`, {
