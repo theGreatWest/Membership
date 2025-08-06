@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- 데이터소스 -->
+    <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"
+		destroy-method="close"
+		p:driverClassName="${db.driver}"
+		p:url="${db.url}"
+		p:username="${db.username}"
+		p:password="${db.password}"	
+	/>
+
+    <!-- MyBatis 설정 -->
+    <bean id="mybatisConfig" class="org.apache.ibatis.session.Configuration" p:jdbcTypeForNull="NULL"/>
+
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"
+      p:dataSource-ref="dataSource"
+      p:typeAliasesPackage="com.mini.membership.dto"
+      p:mapperLocations="classpath:/mappers/*.xml"/>
+	
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate"
+		c:sqlSessionFactory-ref="sqlSessionFactory"
+	/>
+	
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer"
+	    p:basePackage="com.mini.membership.mapper"
+	    p:sqlSessionFactoryBeanName="sqlSessionFactory"
+	/>
+
+    <!-- 트랜잭션 매니저 -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
+		p:dataSource-ref="dataSource"
+	/>
+
+</beans>
