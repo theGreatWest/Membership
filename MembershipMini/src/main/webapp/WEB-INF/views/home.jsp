@@ -193,14 +193,14 @@
               <div class="modal-body px-4">
                 <form class="needs-validation" action="${path }/user/sign_up" method="post" novalidate>
                   <div class="mb-3">
-                    <input class="form-control" type="text" placeholder="Full name" required>
+                    <input class="form-control" name="name" type="text" placeholder="Full name" required>
                   </div>
                   <div class="input-group mb-3">
-                    <input id="emailInput" class="form-control" type="text" placeholder="Email" required>
+                    <input id="emailInput" class="form-control" name="email" type="text" placeholder="Email" required>
                     <button id="email_auth" class="btn btn-outline-primary" type="button" disabled onclick="openVerifyModal()">인증하기</button>
                   </div>
                   <div class="mb-3 password-toggle">
-                    <input class="form-control" type="password" placeholder="Password" required>
+                    <input class="form-control" type="password" name="password" placeholder="Password" required>
                     <label class="password-toggle-btn" aria-label="Show/hide password">
                       <input class="password-toggle-check" type="checkbox"><span class="password-toggle-indicator"></span>
                     </label>
