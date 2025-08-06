@@ -204,7 +204,7 @@ response.setDateHeader("Expires", 0);
                     <div class="card border-0 shadow-sm h-100">
                       <div class="card-body text-center">
                         <h6 class="text-muted mb-2">나의 블루멤버스 포인트</h6>
-                        <h4 class="mb-0 fw-bold" style="color: #2468b6;">0P</h4>
+                        <h4 class="mb-0 fw-bold" style="color: #2468b6;">${totPoint }P</h4>
                       </div>
                     </div>
                   </a>

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import com.mini.membership.HomeController;
 import com.mini.membership.user.dto.Car;
 import com.mini.membership.user.dto.Card;
+import com.mini.membership.user.dto.Point;
 import com.mini.membership.user.dto.SignIn;
 import com.mini.membership.user.dto.User;
 import com.mini.membership.user.service.UserService;
@@ -44,15 +45,11 @@ public class UserController {
 	) {
 	    User result = service.signIn(new SignIn(email,password));
 		if(result==null) {
-			logger.info("실패!");
+			logger.info(">> 로그인 실패");
 			return "redirect:/";
 		}
-		
-		logger.info("성공!");
-		session.setAttribute("signInUser", result);
-		
-		List<Car> cars = service.getCars(result.getUserId());
-		List<Card> cards = service.getCards(result.getUserId());
+		logger.info(">> 로그인 성공");
+		session.setAttribute("signInUser", result); // 로그인 정보 session에 저장 
 		
 		model.addAttribute("id", result.getUserId());
 		model.addAttribute("name", result.getName());
@@ -60,9 +57,15 @@ public class UserController {
 		model.addAttribute("email", result.getEmail());
 		model.addAttribute("photo", result.getPhoto());
 		
+		List<Car> cars = service.getCars(result.getUserId());
 		model.addAttribute("carNum", cars.size());
 		
+		List<Card> cards = service.getCards(result.getUserId());
 		model.addAttribute("cards", cards);
+		
+		List<Point> points = service.getPoints(result.getUserId());
+		int totPoint = points.stream().mapToInt(Point::getAmount).sum();
+		model.addAttribute("totPoint", totPoint);
 		
 		return "jsps/my_page";
 	}

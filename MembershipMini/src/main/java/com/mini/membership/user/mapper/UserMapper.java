@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.mini.membership.user.dto.Car;
 import com.mini.membership.user.dto.Card;
+import com.mini.membership.user.dto.Point;
 import com.mini.membership.user.dto.SignIn;
 import com.mini.membership.user.dto.User;
 
@@ -25,4 +26,7 @@ public interface UserMapper {
 	
 	// 특정 회원의 카드 정보 가져오기 
 	List<Card> getCards(int userId);
+	
+	// 특정 회원의 포인트 정보 가져오기
+	List<Point> getPoints(int userId);
 }

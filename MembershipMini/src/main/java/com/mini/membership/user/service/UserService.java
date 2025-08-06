@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.mini.membership.user.dto.Car;
 import com.mini.membership.user.dto.Card;
+import com.mini.membership.user.dto.Point;
 import com.mini.membership.user.dto.SignIn;
 import com.mini.membership.user.dto.User;
 import com.mini.membership.user.mapper.UserMapper;
@@ -42,5 +43,10 @@ public class UserService {
 //	특정 회원이 소유한 모든 카드 정보 가져오기 
 	public List<Card> getCards(int userId){
 		return userMapper.getCards(userId);
+	}
+	
+//	특정 회원이 소유한 모든 포인터 정보 가져오기
+	public List<Point> getPoints(int userId){
+		return userMapper.getPoints(userId);
 	}
 }

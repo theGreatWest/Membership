@@ -33,6 +33,15 @@
 	    <result property="status" column="STATUS"/>
 	</resultMap>
 	
+	<!-- POINT_TBL -->
+	<resultMap type="com.mini.membership.user.dto.Point" id="pointResultMap">
+	    <id property="pointId" column="point_id" />
+	    <result property="userId" column="user_id" />
+	    <result property="type" column="type" />
+	    <result property="amount" column="amount" />
+	    <result property="processedAt" column="processed_at" />
+	</resultMap>
+	
 	<!-- EMAIL_AUTH_TBL -->
 	<!-- <resultMap type="com.mini.membership.user.dto.EmailAuth" id="emailAuthResultMap">
 	    <id property="authId" column="AUTH_ID"/>
@@ -79,4 +88,14 @@
 	    WHERE user_id = #{userId}
 	    ORDER BY application_date DESC
 	</select>
+	
+	
+	<!-- 포인트 정보 -->
+	<!-- 특정 회원이 가지고 있는 모든 포인트 조회 -->
+   	<select id="getPoints" parameterType="int" resultMap="pointResultMap">
+	    select * from POINT_TBL where user_id = #{userId}
+	</select>
+	
+	
+	
 </mapper>
