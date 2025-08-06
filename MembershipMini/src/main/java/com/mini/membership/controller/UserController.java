@@ -118,7 +118,7 @@ public class UserController {
 	}
 	
 //	새 비밀번호 발급받기 
-	@PostMapping("/get_new_password")
+	@PostMapping("/generate_new_password")
 	public ResponseEntity<Map<String, Object>> getNewPassword(
 			@RequestParam String email
 	) {

@@ -197,7 +197,7 @@
 	    const email = emailInput.value;
 	
 	    // 1단계: 새 비밀번호 발급
-	    fetch(`${path}/user/get_new_password?email=${encodeURIComponent(email)}`, {
+	    fetch(`${path}/user/generate_new_password?email=${email}`, {
 	      method: "POST"
 	    })
 	      .then(res => res.json())
