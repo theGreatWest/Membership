@@ -45,7 +45,7 @@
     <!-- SQL 코드 -->
     <!-- 회원 정보 -->
     <!-- 이메일/비밀번호를 이용해 특정 회원 정보 반환 -->
-   	<select id="selectTargetUser" parameterType="string" resultMap="userResultMap">
+   	<select id="selectTargetUser" parameterType="java.lang.String" resultMap="userResultMap">
    		SELECT * FROM USER_TBL WHERE email = #{email}
    	</select>
     
