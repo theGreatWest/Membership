@@ -322,10 +322,16 @@
           signupBtn.disabled = true;
 
           fetch("${path}/api/email/send", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email })
-          });
+        	  method: "POST",
+        	  headers: { "Content-Type": "application/json" },
+        	  body: JSON.stringify({ email })
+        	})
+        	.then(res => res.json())
+        	.then(data => {
+        	  console.log(data.message);
+        	  if (!data.success) alert("메일 전송 실패: " + data.message);
+        	})
+        	.catch(err => console.error("통신 실패:", err));
         };
 
         // ✅ 인증 코드 검증

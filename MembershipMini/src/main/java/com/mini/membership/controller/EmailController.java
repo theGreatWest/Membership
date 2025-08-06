@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,15 +21,33 @@ public class EmailController {
 	private EmailService service;
 	
 	@PostMapping("/send")
-	public ResponseEntity<Void> sendEmail(
+	public ResponseEntity<Map<String, Object>> sendEmail(
 			@RequestBody Map<String, String> request
 	) {
         String email = request.get("email");
+        
+        Map<String, Object> response = new HashMap<>();
+
         if (email == null || email.isEmpty()) {
-            return ResponseEntity.badRequest().build();
+            response.put("success", false);
+            response.put("message", "이메일이 비어 있습니다.");
+            
+            return ResponseEntity.badRequest().body(response);
         }
-        service.sendEmail(email);
-        return ResponseEntity.ok().build();
+
+        try {
+            service.sendEmail(email);
+            response.put("success", true);
+            response.put("message", "메일 전송 성공: " + email);
+            
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            e.printStackTrace(); // 서버 로그에 에러 출력
+            response.put("success", false);
+            response.put("message", "메일 전송 실패: " + e.getMessage());
+            
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
     } 
 	
 	@PostMapping("/verify")

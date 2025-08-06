@@ -26,18 +26,26 @@ public class EmailService {
 	}
 	
 	// 인증코드 객체 저장 및 이메일 발송 
-	public void sendEmail(String email) {
-		String code = generateVerifyCode();
-		
-		emailMapper.setEmailVerifyCode(new EmailAuth(email, code));
-		
-		SimpleMailMessage msg = new SimpleMailMessage();
-		msg.setTo(email);
-		msg.setSubject("Membership Service 인증 코드");
-		msg.setText("인증코드: "+code);
-		msg.setFrom("kyjinterview@gmail.com");
-		
-		mailSender.send(msg);
+	public void sendEmail(String email) throws Exception {
+	    String code = generateVerifyCode();
+
+	    emailMapper.setEmailVerifyCode(new EmailAuth(email, code));
+
+	    try {
+	        SimpleMailMessage msg = new SimpleMailMessage();
+	        msg.setTo(email);
+	        msg.setSubject("Membership Service 인증 코드");
+	        msg.setText("인증코드: " + code);
+	        msg.setFrom("kjuzoojuk@naver.com");
+
+	        mailSender.send(msg);
+
+	        System.out.println("메일 전송 성공: " + email);
+	    } catch (Exception e) {
+	        System.err.println("메일 전송 실패: " + e.getMessage());
+	        e.printStackTrace();
+	        throw e;  // 예외 다시 던지기 -> 컨트롤러가 인지 가능
+	    }
 	}
 	
 	// 인증코드 생성
