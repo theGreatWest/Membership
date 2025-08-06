@@ -56,11 +56,13 @@ public class EmailController {
 	) {
         String email = request.get("email");
         String code = request.get("code");
+        
         boolean verified = false;
         if (email != null && code != null) {
             EmailAuth emailAuth = new EmailAuth(email, code);
             verified = service.verify(emailAuth);
         }
+        
         Map<String, Boolean> response = new HashMap<>();
         response.put("verified", verified);
         return ResponseEntity.ok(response);

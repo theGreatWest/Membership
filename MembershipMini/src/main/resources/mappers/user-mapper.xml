@@ -50,7 +50,7 @@
    	</select>
     
     <!-- 회원가입 -->
-    <insert id="signUp" parameterType="com.mini.membership.dto.User">
+    <insert id="signUp" parameterType="com.mini.membership.dto.Signup">
 	    INSERT INTO USER_TBL (user_id, name, email, password)
 	    VALUES (user_seq.NEXTVAL, #{name}, #{email}, #{password})
 	</insert>

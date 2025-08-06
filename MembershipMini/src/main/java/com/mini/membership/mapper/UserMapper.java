@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.mini.membership.dto.Car;
 import com.mini.membership.dto.Card;
 import com.mini.membership.dto.Point;
+import com.mini.membership.dto.Signup;
 import com.mini.membership.dto.User;
 
 @Mapper
@@ -15,7 +16,7 @@ public interface UserMapper {
 	User selectTargetUser(String email);
 	
 	// 회원가입 
-	int signUp(User user);
+	int signUp(Signup user);
 	
 	// 회원 정보 업데이트 
 	int updateUser(User user);

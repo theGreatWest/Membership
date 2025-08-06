@@ -21,6 +21,7 @@ import com.mini.membership.dto.Car;
 import com.mini.membership.dto.Card;
 import com.mini.membership.dto.Point;
 import com.mini.membership.dto.SignIn;
+import com.mini.membership.dto.Signup;
 import com.mini.membership.dto.User;
 import com.mini.membership.service.UserService;
 
@@ -98,13 +99,17 @@ public class UserController {
 //  회원가입 
 	@PostMapping("/sign_up")
 	public String signup(
-			@ModelAttribute User userInput
+			@RequestParam String name,
+	        @RequestParam String email,
+	        @RequestParam String password
 	) {
 		// 비밀번호를 암호화해서 바꾸기 
-		String encodedPassword = service.encodePassword(userInput.getPassword());
-		userInput.setPassword(encodedPassword);
+		String encodedPassword = service.encodePassword(password);
 		
-		service.signUp(userInput);
+		Signup input = new Signup(name, email, encodedPassword);
+		
+		service.signUp(input);
+		
 		return "home";
 	}
 	

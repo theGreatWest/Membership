@@ -10,6 +10,7 @@ import com.mini.membership.dto.Car;
 import com.mini.membership.dto.Card;
 import com.mini.membership.dto.Point;
 import com.mini.membership.dto.SignIn;
+import com.mini.membership.dto.Signup;
 import com.mini.membership.dto.User;
 import com.mini.membership.mapper.UserMapper;
 
@@ -27,7 +28,7 @@ public class UserService {
 	
 //  회원가입 
 //	@Transactional : 쿼리 처리중에 예외 발생시 자동으로 roll-back 시켜주는 어노테이션(AOP)
-	public int signUp(User userInput) {
+	public int signUp(Signup userInput) {
 		return userMapper.signUp(userInput);
 	}
 	
