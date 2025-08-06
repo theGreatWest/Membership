@@ -17,7 +17,7 @@
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 	    <property name="host" value="smtp.naver.com"/>
 	    <property name="port" value="465"/>
-	    <property name="username" value="kjuzoojuk@naver.com"/> <!-- 네이버 이메일 -->
+	    <property name="username" value="kjuzoojuk"/> <!-- 네이버 이메일 -->
 	    <property name="password" value="GPBC7B6RU9H6"/>       <!-- 네이버 앱 비밀번호 -->
 	    <property name="javaMailProperties">
 	        <props>
