@@ -93,7 +93,8 @@
 	<!-- 포인트 정보 -->
 	<!-- 특정 회원이 가지고 있는 모든 포인트 조회 -->
    	<select id="getPoints" parameterType="int" resultMap="pointResultMap">
-	    select * from POINT_TBL where user_id = #{userId}
+	    SELECT * FROM POINT_TBL 
+	    WHERE user_id = #{userId}
 	</select>
 	
 	
