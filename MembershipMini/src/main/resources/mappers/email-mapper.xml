@@ -2,10 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="com.mini.membership.mapper.EmailMapper">
-	<!-- EMAIL_AUTH_TBL -->
-	<resultMap type="com.mini.membership.dto.EmailAuth" id="emailAuthResultMap">
-	    <result property="email" column="EMAIL"/>
-	    <result property="authCode" column="AUTH_CODE"/>
+	
+	<resultMap id="emailAuthResultMap" type="com.mini.membership.dto.Email">
+	    <id property="authId" column="auth_id"/>
+	    <result property="email" column="email"/>
+	    <result property="authCode" column="auth_code"/>
+	    <result property="expireTime" column="expire_time"/>
+	    <result property="createdAt" column="created_at"/>
 	</resultMap>
 	
 	<!-- 이메일 인증 코드 저장 -->
@@ -22,7 +25,7 @@
 		WHERE 
 			email = #{email}
 			AND auth_code = #{authCode}
-			AND expire_time > CURRENT_TIMESTAMP
+			AND expire_time &gt; CURRENT_TIMESTAMP
 	</select>
 	
 	<!-- 이메일 인증이 만료된 row 삭제 -->
