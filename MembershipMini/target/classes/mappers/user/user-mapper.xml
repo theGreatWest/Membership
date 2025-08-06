@@ -45,8 +45,8 @@
     <!-- SQL 코드 -->
     <!-- 회원 정보 -->
     <!-- 이메일/비밀번호를 이용해 특정 회원 정보 반환 -->
-   	<select id="selectTargetUser" parameterType="com.mini.membership.user.dto.SignIn" resultMap="userResultMap">
-   		SELECT * FROM USER_TBL WHERE email = #{email} and password = #{password}
+   	<select id="selectTargetUser" parameterType="String" resultMap="userResultMap">
+   		SELECT * FROM USER_TBL WHERE email = #{email}
    	</select>
     
     <!-- 회원가입 -->

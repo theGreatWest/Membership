@@ -32,8 +32,8 @@ public class UserService {
 	}
 	
 //	로그인 
-	public User signIn(SignIn userInput) {
-		return userMapper.selectTargetUser(userInput);
+	public User signIn(String email) {
+		return userMapper.selectTargetUser(email);
 	}
 	
 //  회원 정보 업데이트 

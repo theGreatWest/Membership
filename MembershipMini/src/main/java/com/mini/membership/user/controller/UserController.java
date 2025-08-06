@@ -44,7 +44,7 @@ public class UserController {
 	        @RequestParam String password
 	) {
 	    // 아이디(이메일) 검증
-		User result = service.signIn(new SignIn(email,password));
+		User result = service.signIn(email);
 		if(result==null) {
 			logger.info(">> [로그인 실패] 존재하지 않는 이메일");
 			return "redirect:/";
