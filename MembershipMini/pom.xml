@@ -231,6 +231,20 @@
 		    <version>2.8.0</version>
 		</dependency>
 		
+		<!-- JavaMailSender 를 위해 의존성 추가 -->
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-context-support</artifactId>
+		    <version>${org.springframework-version}</version>
+		</dependency>
+		
+		<!-- JavaMail API -->
+		<dependency>
+		    <groupId>com.sun.mail</groupId>
+		    <artifactId>jakarta.mail</artifactId>
+		    <version>1.6.7</version>
+		</dependency>
+		
 		<!-- File Upload -->
 		<dependency>
 		    <groupId>commons-io</groupId>

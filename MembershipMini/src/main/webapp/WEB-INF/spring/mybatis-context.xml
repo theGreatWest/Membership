@@ -19,20 +19,19 @@
     <!-- MyBatis 설정 -->
     <bean id="mybatisConfig" class="org.apache.ibatis.session.Configuration" p:jdbcTypeForNull="NULL"/>
 
-	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean" 
-		p:configuration-ref="mybatisConfig"
-		p:mapperLocations="classpath:mappers/**/*.xml"
-		p:typeAliasesPackage="com.mini.membership.user.dto"
-		p:dataSource-ref="dataSource"
-	/>
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"
+      p:dataSource-ref="dataSource"
+      p:configLocation="classpath:mybatis-config.xml"
+      p:typeAliasesPackage="com.mini.membership.user.dto, com.mini.membership.email.dto"
+      p:mapperLocations="classpath:/mappers/user/*.xml, classpath:/mappers/email/*.xml"/>
 	
 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate"
 		c:sqlSessionFactory-ref="sqlSessionFactory"
 	/>
 	
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer"
-		p:basePackage="com.mini.membership.user.mapper"	
-		p:sqlSessionFactoryBeanName="sqlSessionFactory"
+	    p:basePackage="com.mini.membership.user.mapper, com.mini.membership.email.mapper"
+	    p:sqlSessionFactoryBeanName="sqlSessionFactory"
 	/>
 
     <!-- 트랜잭션 매니저 -->

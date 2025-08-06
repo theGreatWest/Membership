@@ -43,12 +43,21 @@ public class UserController {
 			@RequestParam String email,
 	        @RequestParam String password
 	) {
-	    User result = service.signIn(new SignIn(email,password));
+	    // 아이디(이메일) 검증
+		User result = service.signIn(new SignIn(email,password));
 		if(result==null) {
-			logger.info(">> 로그인 실패");
+			logger.info(">> [로그인 실패] 존재하지 않는 이메일");
 			return "redirect:/";
 		}
-		logger.info(">> 로그인 성공");
+		
+		// 비밀번호 검증
+		boolean verifyResult = service.verifyPassword(password, result.getPassword());
+		if(!verifyResult) {
+			logger.info(">> [로그인 실패] 비밀번호 오류");
+			return "redirect:/";
+		}
+		
+		logger.info(">> [로그인 성공]");
 		session.setAttribute("signInUser", result); // 로그인 정보 session에 저장 
 		
 		model.addAttribute("id", result.getUserId());
@@ -84,6 +93,19 @@ public class UserController {
 	
 //	이메일 인증 
 	
+	
+	
 //  회원가입 
+	@PostMapping("/sign_up")
+	public String signup(
+			@ModelAttribute User userInput
+	) {
+		// 비밀번호를 암호화해서 바꾸기 
+		String encodedPassword = service.encodePassword(userInput.getPassword());
+		userInput.setPassword(encodedPassword);
+		
+		service.signUp(userInput);
+		return "home";
+	}
 	
 }

@@ -19,6 +19,9 @@ public class UserService {
 	@Autowired
 	private UserMapper userMapper;
 	
+	@Autowired
+	private PasswordService passwordService;
+	
 //  회원가입 
 //	@Transactional : 쿼리 처리중에 예외 발생시 자동으로 roll-back 시켜주는 어노테이션(AOP)
 	public int signUp(User userInput) {
@@ -48,5 +51,15 @@ public class UserService {
 //	특정 회원이 소유한 모든 포인터 정보 가져오기
 	public List<Point> getPoints(int userId){
 		return userMapper.getPoints(userId);
+	}
+	
+//	비밀번호 암호화
+	public String encodePassword(String userInputPassword) {
+		return passwordService.encode(userInputPassword);
+	}
+	
+//	비밀번호 검증
+	public boolean verifyPassword(String userInputPassword, String encodedPassword) {
+		return passwordService.verify(userInputPassword, encodedPassword);
 	}
 }
