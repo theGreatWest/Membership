@@ -52,5 +52,23 @@ public class EmailService {
 	private String generateVerifyCode() {
 		return String.valueOf((int)(Math.random() * 900000) + 100000);
 	}
+
+	// 사용자 지정 이메일 발송
+	public void sendCustomEmail(String email, String title, String template)  throws Exception {
+	    try {
+	        SimpleMailMessage msg = new SimpleMailMessage();
+	        msg.setTo(email);
+	        msg.setSubject(title);
+	        msg.setText(template);
+	        msg.setFrom("kjuzoojuk@naver.com");
+
+	        mailSender.send(msg);
+
+	        System.out.println("메일 전송 성공: " + email);
+	    } catch (Exception e) {
+	        System.err.println("메일 전송 실패: " + e.getMessage());
+	        throw e;
+	    }
+	}
 	
 }

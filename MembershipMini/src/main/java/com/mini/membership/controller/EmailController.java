@@ -37,12 +37,12 @@ public class EmailController {
 
         try {
             service.sendEmail(email);
+            
             response.put("success", true);
             response.put("message", "메일 전송 성공: " + email);
             
             return ResponseEntity.ok(response);
         } catch (Exception e) {
-            e.printStackTrace(); // 서버 로그에 에러 출력
             response.put("success", false);
             response.put("message", "메일 전송 실패: " + e.getMessage());
             
@@ -67,5 +67,36 @@ public class EmailController {
         response.put("verified", verified);
         return ResponseEntity.ok(response);
     }
+	
+	@PostMapping("/send_new_password")
+	public ResponseEntity<Map<String, Object>> sendNewPasswordEmail(
+			@RequestBody Map<String, String> request
+	) {
+        String email = request.get("email");
+        String newPwd = request.get("newPassword");
+        
+        Map<String, Object> response = new HashMap<>();
+
+        if (email == null || email.isEmpty()) {
+            response.put("success", false);
+            response.put("message", "이메일이 비어 있습니다.");
+            
+            return ResponseEntity.badRequest().body(response);
+        }
+
+        try {
+            service.sendCustomEmail(email, "새비밀번호 발급" ,"[ 새비밀번호 ] "+newPwd);
+            
+            response.put("success", true);
+            response.put("message", "메일 전송 성공: " + email);
+            
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            response.put("success", false);
+            response.put("message", "메일 전송 실패: " + e.getMessage());
+            
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+    } 
 	
 }

@@ -194,40 +194,41 @@
 	    	  function requestNewPassword() {
 	    	    const email = emailInput.value;
 	
+	    	 // 1단계: 새 비밀번호 생성 요청
 	    	    fetch(`${path}/user/generate_new_password`, {
 	    	      method: "POST",
 	    	      headers: { "Content-Type": "application/json" },
 	    	      body: JSON.stringify({ email })
 	    	    })
-	    	      .then(res => res.json())
+	    	      .then(response => response.json())
 	    	      .then(data => {
-	    	        if (!data.success) {
-	    	          alert("비밀번호 발급 실패: " + data.message);
-	    	          return;
-	    	        }
-	
-	    	        fetch(`${path}/api/email/send`, {
-	    	          method: "POST",
-	    	          headers: { "Content-Type": "application/json" },
-	    	          body: JSON.stringify({ email })
-	    	        })
-	    	          .then(res => res.json())
-	    	          .then(emailData => {
-	    	            if (emailData.success) {
-	    	              alert("새 비밀번호가 이메일로 전송되었습니다.");
-	    	              window.location.href = `${path}/`;
-	    	            } else {
-	    	              alert("이메일 전송 실패: " + emailData.message);
-	    	            }
-	    	          })
-	    	          .catch(err => {
-	    	            console.error("이메일 전송 중 오류:", err);
-	    	            alert("이메일 전송 중 문제가 발생했습니다.");
+	    	        if (data.success) {
+	    	          const newPassword = data.newPassword;
+
+	    	          // 2단계: 이메일 전송 요청 (newPassword 포함해서)
+	    	          return fetch(`${path}/api/email/send_new_password`, {
+	    	            method: "POST",
+	    	            headers: { "Content-Type": "application/json" },
+	    	            body: JSON.stringify({
+	    	              email: email,
+	    	              newPassword: newPassword
+	    	            })
 	    	          });
+	    	        } else {
+	    	          throw new Error(data.message || "비밀번호 생성 실패");
+	    	        }
 	    	      })
-	    	      .catch(err => {
-	    	        console.error("비밀번호 발급 중 오류:", err);
-	    	        alert("비밀번호 발급 중 문제가 발생했습니다.");
+	    	      .then(response => response.json())
+	    	      .then(emailResult => {
+	    	        if (emailResult.success) {
+	    	          alert("이메일 전송 완료!");
+	    	        } else {
+	    	          alert("이메일 전송 실패: " + emailResult.message);
+	    	        }
+	    	      })
+	    	      .catch(error => {
+	    	        console.error("에러 발생:", error);
+	    	        alert("요청 처리 중 오류가 발생했습니다.");
 	    	      });
 	    	  }
 	

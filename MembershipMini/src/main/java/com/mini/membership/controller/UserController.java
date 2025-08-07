@@ -130,7 +130,6 @@ public class UserController {
 		User user = service.signIn(email);
 		if(user==null) return null;
 		
-	
 		// 새 비밀번호 발급
 		String newPWD = service.generateNewPassword();
 		
