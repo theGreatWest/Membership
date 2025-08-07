@@ -179,67 +179,63 @@
     <script src="${path}/resources/js/theme.min.js"></script>
 
     <script>
-	  const emailInput = document.getElementById("recovery-email");
-	  const getNewPasswordBtn = document.getElementById("make_new_password");
+	    document.addEventListener("DOMContentLoaded", function () {
+	    	  const emailInput = document.getElementById("recovery-email");
+	    	  const getNewPasswordBtn = document.getElementById("make_new_password");
 	
-	  // 이메일 형식 검증
-	  function isValidEmail(email) {
-	    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-	  }
+	    	  function isValidEmail(email) {
+	    	    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+	    	  }
 	
-	  // 버튼 활성화/비활성화
-	  emailInput.addEventListener("input", function () {
-	    getNewPasswordBtn.disabled = !isValidEmail(emailInput.value);
-	  });
+	    	  emailInput.addEventListener("input", function () {
+	    	    getNewPasswordBtn.disabled = !isValidEmail(emailInput.value);
+	    	  });
 	
-	  // 새 비밀번호 발급 및 이메일 전송
-	  function requestNewPassword() {
-		  const email = document.getElementById("recovery-email").value;
+	    	  function requestNewPassword() {
+	    	    const email = emailInput.value;
 	
-	    // 1단계: 새 비밀번호 발급
-	    fetch("${path}/user/generate_new_password", {
-	        method: "POST"
-	   		headers: { "Content-Type": "application/json" },
-	    	body: JSON.stringify({ email })
-	    })
-	      .then(res => res.json())
-	      .then(data => {
-	        if (!data.success) {
-	          alert("비밀번호 발급 실패: " + data.message);
-	          return;
-	        }
+	    	    fetch(`${path}/user/generate_new_password`, {
+	    	      method: "POST",
+	    	      headers: { "Content-Type": "application/json" },
+	    	      body: JSON.stringify({ email })
+	    	    })
+	    	      .then(res => res.json())
+	    	      .then(data => {
+	    	        if (!data.success) {
+	    	          alert("비밀번호 발급 실패: " + data.message);
+	    	          return;
+	    	        }
 	
-	        // 2단계: 새 비밀번호를 이메일로 전송
-	        fetch("${path}/api/email/send", {
-	          method: "POST",
-	          headers: { "Content-Type": "application/json" },
-	          body: JSON.stringify({ email })
-	        })
-	          .then(res => res.json())
-	          .then(emailData => {
-	            if (emailData.success) {
-	              alert("새 비밀번호가 이메일로 전송되었습니다.");
-	              window.location.href = `${path}/`; // 홈으로 이동
-	            } else {
-	              alert("이메일 전송 실패: " + emailData.message);
-	            }
-	          })
-	          .catch(err => {
-	            console.error("이메일 전송 중 오류:", err);
-	            alert("이메일 전송 중 문제가 발생했습니다.");
-	          });
-	      })
-	      .catch(err => {
-	        console.error("비밀번호 발급 중 오류:", err);
-	        alert("비밀번호 발급 중 문제가 발생했습니다.");
-	      });
-	  }
+	    	        fetch(`${path}/api/email/send`, {
+	    	          method: "POST",
+	    	          headers: { "Content-Type": "application/json" },
+	    	          body: JSON.stringify({ email })
+	    	        })
+	    	          .then(res => res.json())
+	    	          .then(emailData => {
+	    	            if (emailData.success) {
+	    	              alert("새 비밀번호가 이메일로 전송되었습니다.");
+	    	              window.location.href = `${path}/`;
+	    	            } else {
+	    	              alert("이메일 전송 실패: " + emailData.message);
+	    	            }
+	    	          })
+	    	          .catch(err => {
+	    	            console.error("이메일 전송 중 오류:", err);
+	    	            alert("이메일 전송 중 문제가 발생했습니다.");
+	    	          });
+	    	      })
+	    	      .catch(err => {
+	    	        console.error("비밀번호 발급 중 오류:", err);
+	    	        alert("비밀번호 발급 중 문제가 발생했습니다.");
+	    	      });
+	    	  }
 	
-	  // 기존 submit 방지 + requestNewPassword 호출
-	  getNewPasswordBtn.addEventListener("click", function (event) {
-	    event.preventDefault();
-	    requestNewPassword();
-	  });
+	    	  getNewPasswordBtn.addEventListener("click", function (event) {
+	    	    event.preventDefault();
+	    	    requestNewPassword();
+	    	  });
+	    	});
 	</script>
   </body>
 </html>
