@@ -197,8 +197,10 @@
 		  const email = document.getElementById("recovery-email").value;
 	
 	    // 1단계: 새 비밀번호 발급
-	    fetch(`${path}/user/generate_new_password?email=${email}`, {
-	      method: "POST"
+	    fetch("${path}/user/generate_new_password", {
+	        method: "POST"
+	   		headers: { "Content-Type": "application/json" },
+	    	body: JSON.stringify({ email })
 	    })
 	      .then(res => res.json())
 	      .then(data => {
