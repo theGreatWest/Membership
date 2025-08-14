@@ -188,7 +188,7 @@ response.setDateHeader("Expires", 0);
                   <h1 class="h3 mb-2 text-nowrap">계정 관리</h1><a class="btn btn-link text-danger fw-medium btn-sm mb-2" href="#"><i class="ai-trash-2 fs-base me-2"></i>계정 삭제</a>
                 </div>
 
-                <form action="[서버의 파일 업로드 URL]" method="post" enctype="multipart/form-data">
+                <form action="${path }/user/update_user_info" method="post" enctype="multipart/form-data">
                   <div class="rounded-3 p-4 mb-4" style="background-color: #447ab8;">
                     <div class="d-block d-sm-flex align-items-center">
                       <img class="d-block rounded-circle mx-sm-0 mx-auto mb-3 mb-sm-0" id="profile-avatar" src="../dist/img/membership/Neo.png" alt="User Avatar" width="100">

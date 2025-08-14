@@ -29,6 +29,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.mini.membership.dto.User;
+
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -54,7 +56,12 @@ public class HomeController {
 	}
 	
 	@GetMapping("/go_account")
-	public String goAccount(Locale locale, Model model) {		
+	public String goAccount(HttpSession session, Model model) {	
+		User user = (User) session.getAttribute("signInUser");
+		
+		model.addAttribute("photo", user.getPhoto());
+		model.addAttribute("name", user.getName());
+		
 		return "jsps/account-profile";
 	}
 }
