@@ -183,6 +183,8 @@ public class UserController {
         user.setPassword(service.encodePassword(newPassword));
         user.setName(username);
         user.setPhoto(saveFileName);
+        session.setAttribute("signInUser", user);
+        
         service.updateUserInfo(user);
         
         // 사용자 정보 담기
@@ -210,5 +212,18 @@ public class UserController {
 		
 	}
 	
+//	회원 정보 삭제
+	@PostMapping("/remove_account")
+	public String removeAccount(
+			HttpSession session
+	) {
+		User user = (User) session.getAttribute("signInUser");
+		
+		// delete
+		
+		session.invalidate();
+		
+		return "home";
+	}
 	
 }

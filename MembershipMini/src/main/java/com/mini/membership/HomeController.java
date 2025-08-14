@@ -56,12 +56,7 @@ public class HomeController {
 	}
 	
 	@GetMapping("/go_account")
-	public String goAccount(HttpSession session, Model model) {	
-		User user = (User) session.getAttribute("signInUser");
-		
-		model.addAttribute("photo", user.getPhoto());
-		model.addAttribute("name", user.getName());
-		
+	public String goAccount() {	
 		return "jsps/account-profile";
 	}
 }

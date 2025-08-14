@@ -164,8 +164,8 @@ response.setDateHeader("Expires", 0);
           <div class="col-lg-4 mb-4 mb-lg-0">
             <div class="bg-light rounded-3 shadow-lg">
               <div class="px-4 py-4 mb-1 text-center">
-                <img class="d-block rounded-circle mx-auto my-2" src="${path}/resources/img/membership/${photo}" width="80" style="border: 3px solid #002C5F;">
-                <h6 class="mb-0 pt-1">${name }</h6>
+                <img class="d-block rounded-circle mx-auto my-2" src="${path}/resources/img/membership/${sessionScope.signInUser.photo}" width="80" style="border: 3px solid #002C5F;">
+                <h6 class="mb-0 pt-1">${sessionScope.signInUser.name}</h6>
               </div>
               <div class="d-lg-none px-4 pb-4 text-center"><a class="btn btn-primary px-5 mb-2" href="#account-menu" data-bs-toggle="collapse"><i class="ai-menu me-2"></i>Account menu</a></div>
               <div class="d-lg-block collapse pb-2" id="account-menu">
@@ -191,7 +191,7 @@ response.setDateHeader("Expires", 0);
                 <form action="${path }/user/update_user_info" method="post" enctype="multipart/form-data">
                   <div class="rounded-3 p-4 mb-4" style="background-color: #447ab8;">
                     <div class="d-block d-sm-flex align-items-center">
-                      <img class="d-block rounded-circle mx-sm-0 mx-auto mb-3 mb-sm-0" id="profile-avatar" src="${path}/resources/img/membership/${photo}" alt="User Avatar" width="100">
+                      <img class="d-block rounded-circle mx-sm-0 mx-auto mb-3 mb-sm-0" id="profile-avatar" src="${path}/resources/img/membership/${sessionScope.signInUser.photo}" alt="User Avatar" width="100">
                       <div class="ps-sm-3 text-center text-sm-start">
                         <label for="avatar-upload" class="btn btn-light shadow btn-sm mb-2">
                           <i class="ai-refresh-cw me-2"></i>대표 이미지 변경
