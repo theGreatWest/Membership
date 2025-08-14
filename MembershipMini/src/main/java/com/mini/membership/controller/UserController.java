@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -47,7 +48,7 @@ public class UserController {
     private EmailService emailService;
 	
 	@Autowired
-    private ResourceLoader resourceLoader;
+	private ServletContext servletContext;
 	
 	private Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
@@ -164,15 +165,16 @@ public class UserController {
 	        @RequestParam("account-password") String newPassword
 	) {
 		// 이미지 저장
-        Resource resource = resourceLoader.getResource("classpath:/resources/img/membership/");
+		String realPath = servletContext.getRealPath("/resources/img/membership/");
         String saveFileName = "None";
         try {
-        	File uploadDir = resource.getFile();
+        	File uploadDir = new File(realPath);
 
-            saveFileName = username + "_img.png";
+        	saveFileName = username + "_img.png";
             File saveFile = new File(uploadDir, saveFileName);
 
             avatarFile.transferTo(saveFile);
+
         }catch(Exception e) {}
 
         

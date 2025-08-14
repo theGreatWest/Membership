@@ -206,7 +206,7 @@ response.setDateHeader("Expires", 0);
                       <div class="mb-3 pb-1">
                         <label class="form-label px-0" for="account-username">사용자 이름</label>
                         <div class="input-group">
-                          <input class="form-control" type="text" id="account-username" name="account-username">
+                          <input class="form-control" type="text" id="account-username" name="account-username" value="${sessionScope.signInUser.name}>
                         </div>
                       </div>
                     </div>
