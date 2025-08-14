@@ -74,7 +74,6 @@ public class UserController {
 		}
 		
 		logger.info(">> [로그인 성공]");
-		result.setPhoto("person.png");
 		session.setAttribute("signInUser", result); // 로그인 정보 session에 저장 
 		
 		List<Car> cars = service.getCars(result.getUserId()); 
