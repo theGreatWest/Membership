@@ -52,4 +52,9 @@ public class HomeController {
 	public String getNewPassword(Locale locale, Model model) {		
 		return "jsps/password-recovery";
 	}
+	
+	@GetMapping("/go_account")
+	public String goAccount(Locale locale, Model model) {		
+		return "jsps/account-profile";
+	}
 }

@@ -179,7 +179,7 @@ response.setDateHeader("Expires", 0);
                   <a class="d-flex click_obj align-items-center nav-link-style px-4 py-3" href="#"><i class="ai-award fs-lg opacity-60 me-2"></i>블루 멤버스 포인트</a>
               
                 <h3 class="d-block fs-sm fw-semibold text-muted mb-0 px-4 py-3" style="background-color: #edf4ff;">계정 관리</h3>
-                  <a class="d-flex click_obj align-items-center nav-link-style px-4 py-3" href="#">계정 정보</a>
+                  <a class="d-flex click_obj align-items-center nav-link-style px-4 py-3" href="${path }/go_account">계정 관리</a>
                   <a class="d-flex click_obj align-items-center nav-link-style px-4 py-3 border-top" href="#">결제 수단 관리</a>
                   <a class="d-flex click_obj align-items-center nav-link-style px-4 py-3 border-top" href="${path }/user/logout"><i class="ai-log-out fs-lg opacity-60 me-2"></i>로그아웃</a>
               </div>
