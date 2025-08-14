@@ -100,4 +100,8 @@ public class UserService {
         }
         return new String(array);
     }
+
+	public void removeAccount(int userId) {
+		userMapper.removeAccount(userId);
+	}
 }

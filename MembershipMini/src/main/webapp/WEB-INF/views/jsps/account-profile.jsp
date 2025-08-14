@@ -11,7 +11,7 @@ response.setDateHeader("Expires", 0);
 %>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
   <head>
     <meta charset="utf-8">
     <title>MY PAGE</title>
@@ -185,13 +185,13 @@ response.setDateHeader("Expires", 0);
             <div class="d-flex flex-column h-100 bg-light rounded-3 shadow-lg p-4">
               <div class="py-2 p-md-3">
                 <div class="d-sm-flex align-items-center justify-content-between pb-4 text-center text-sm-start">
-                  <h1 class="h3 mb-2 text-nowrap">계정 관리</h1><a class="btn btn-link text-danger fw-medium btn-sm mb-2" href="#"><i class="ai-trash-2 fs-base me-2"></i>계정 삭제</a>
+                  <h1 class="h3 mb-2 text-nowrap">계정 관리</h1><a class="btn btn-link text-danger fw-medium btn-sm mb-2" href="${path }/user/remove_account"><i class="ai-trash-2 fs-base me-2"></i>계정 삭제</a>
                 </div>
 
                 <form action="${path }/user/update_user_info" method="post" enctype="multipart/form-data">
                   <div class="rounded-3 p-4 mb-4" style="background-color: #447ab8;">
                     <div class="d-block d-sm-flex align-items-center">
-                      <img class="d-block rounded-circle mx-sm-0 mx-auto mb-3 mb-sm-0" id="profile-avatar" src="${path}/resources/img/membership/${sessionScope.signInUser.photo}" alt="User Avatar" width="100">
+                      <img class="d-block rounded-circle ms-0 my-2" src="${path}/resources/img/membership/${sessionScope.signInUser.photo}" width="100" style="border: 3px solid #002C5F; margin-right: 10px;">
                       <div class="ps-sm-3 text-center text-sm-start">
                         <label for="avatar-upload" class="btn btn-light shadow btn-sm mb-2">
                           <i class="ai-refresh-cw me-2"></i>대표 이미지 변경

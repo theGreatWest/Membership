@@ -220,6 +220,7 @@ public class UserController {
 		User user = (User) session.getAttribute("signInUser");
 		
 		// delete
+		service.removeAccount(user.getUserId());
 		
 		session.invalidate();
 		

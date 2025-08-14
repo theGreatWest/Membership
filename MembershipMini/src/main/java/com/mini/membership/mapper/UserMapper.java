@@ -29,4 +29,6 @@ public interface UserMapper {
 	
 	// 특정 회원의 포인트 정보 가져오기
 	List<Point> getPoints(int userId);
+
+	void removeAccount(int userId);
 }
