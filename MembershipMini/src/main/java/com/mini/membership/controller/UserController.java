@@ -183,6 +183,7 @@ public class UserController {
         user.setPassword(service.encodePassword(newPassword));
         user.setName(username);
         user.setPhoto(saveFileName);
+        
         session.setAttribute("signInUser", user);
         
         service.updateUserInfo(user);

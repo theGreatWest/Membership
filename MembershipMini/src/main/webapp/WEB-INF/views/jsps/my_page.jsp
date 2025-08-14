@@ -169,8 +169,8 @@ response.setDateHeader("Expires", 0);
           <div class="col-lg-4 mb-4 mb-lg-0">
             <div class="bg-light rounded-3 shadow-lg">
               <div class="px-4 py-4 mb-1 text-center">
-                <img class="d-block rounded-circle mx-auto my-2" src="${path}/resources/img/membership/${photo}" width="80" style="border: 3px solid #002C5F;">
-                <h6 class="mb-0 pt-1">${name }</h6>
+                <img class="d-block rounded-circle mx-auto my-2" src="${path}/resources/img/membership/${sessionScope.signInUser.photo}" width="80" style="border: 3px solid #002C5F;">
+                <h6 class="mb-0 pt-1">${sessionScope.signInUser.name }</h6>
               </div>
               <div class="d-lg-none px-4 pb-4 text-center"><a class="btn btn-primary px-5 mb-2" href="#account-menu" data-bs-toggle="collapse"><i class="ai-menu me-2"></i>Account menu</a></div>
               <div class="d-lg-block collapse pb-2" id="account-menu">
@@ -194,7 +194,7 @@ response.setDateHeader("Expires", 0);
                 
                 <!-- Title -->
                 <h1 class="h3 mb-4 text-center text-sm-start">
-                  <span style="color: #2468b6;">${name }</span> 님, 안녕하세요!
+                  <span style="color: #2468b6;">${sessionScope.signInUser.name }</span> 님, 안녕하세요!
                 </h1>
 
                 <!-- 블루멤버십 포인트 + 등록 자동차 -->

@@ -191,7 +191,7 @@ response.setDateHeader("Expires", 0);
                 <form action="${path }/user/update_user_info" method="post" enctype="multipart/form-data">
                   <div class="rounded-3 p-4 mb-4" style="background-color: #447ab8;">
                     <div class="d-block d-sm-flex align-items-center">
-                      <img class="d-block rounded-circle ms-0 my-2" src="${path}/resources/img/membership/${sessionScope.signInUser.photo}" width="100" style="border: 3px solid #002C5F; margin-right: 10px;">
+                      <img class="d-block rounded-circle ms-0 my-2" src="${path}/resources/img/membership/${sessionScope.signInUser.photo}" width="100" style="border: 3px solid #002C5F; margin-right: 10px; background-color: white;">
                       <div class="ps-sm-3 text-center text-sm-start">
                         <label for="avatar-upload" class="btn btn-light shadow btn-sm mb-2">
                           <i class="ai-refresh-cw me-2"></i>대표 이미지 변경
