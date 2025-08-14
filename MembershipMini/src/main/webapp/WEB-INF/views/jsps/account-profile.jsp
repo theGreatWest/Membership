@@ -266,7 +266,8 @@ response.setDateHeader("Expires", 0);
         const passwordInput = document.getElementById('account-password');
         const confirmPasswordInput = document.getElementById('account-password-confirm');
         const saveChangesBtn = document.getElementById('saveChangesBtn');
-
+        const removeAccountBtn = document.getElementById('remove-account-btn');
+        
         // ✅ 비밀번호 조건: 영어 1개 이상 + 특수문자 1개 이상 + 8자 이상
         function isValidPassword(password) {
           const regex = /^(?=.*[A-Za-z])(?=.*[^A-Za-z0-9]).{8,}$/;
@@ -280,7 +281,7 @@ response.setDateHeader("Expires", 0);
 
           const passwordValid = isValidPassword(password);
           const passwordsMatch = password === confirmPassword;
-
+          
           // 비밀번호 입력 필드 테두리 색상 변경
           if (password.length > 0) {
             passwordInput.style.borderColor = passwordValid ? '#28a745' : '#dc3545'; // 성공/실패 시 색상
@@ -303,7 +304,6 @@ response.setDateHeader("Expires", 0);
         confirmPasswordInput.addEventListener('input', checkPasswordAvailability);
       
      	// ✅ 계정 삭제 버튼 이벤트
-        const removeAccountBtn = document.getElementById('remove-account-btn');
         if (removeAccountBtn) {
             removeAccountBtn.addEventListener('click', function(e) {
                 e.preventDefault(); // 기본 링크 동작 방지

@@ -209,7 +209,7 @@ public class UserController {
 	}
 	
 //	회원 정보 삭제
-	@PostMapping("/remove_account")
+	@PostMapping("/remove_account") 
 	public String removeAccount(
 			HttpSession session
 	) {
