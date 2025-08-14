@@ -59,4 +59,9 @@ public class HomeController {
 	public String goAccount() {	
 		return "jsps/account-profile";
 	}
+	
+	@GetMapping("/go_my_page")
+	public String goMyPage() {	
+		return "jsps/my_page";
+	}
 }

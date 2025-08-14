@@ -120,6 +120,12 @@ response.setDateHeader("Expires", 0);
         color: white !important;
       }
       
+      input.form-control:focus {
+        border-color: #3470b5 !important;
+        box-shadow: 0 0 0 0.2rem rgba(113, 172, 239, 0.25) !important;
+        outline: none !important;
+      }
+      
     </style>
     <!-- Page loading scripts-->
     <script>
@@ -164,7 +170,10 @@ response.setDateHeader("Expires", 0);
           <div class="col-lg-4 mb-4 mb-lg-0">
             <div class="bg-light rounded-3 shadow-lg">
               <div class="px-4 py-4 mb-1 text-center">
-                <img class="d-block rounded-circle mx-auto my-2" src="${path}/resources/img/membership/${sessionScope.signInUser.photo}" width="80" style="border: 3px solid #002C5F;">
+                <a href="${path}/go_my_page">
+			        <img class="d-block rounded-circle mx-auto my-2" src="${path}/resources/img/membership/${sessionScope.signInUser.photo}" width="80" style="border: 3px solid #002C5F;">
+			    </a>
+                
                 <h6 class="mb-0 pt-1">${sessionScope.signInUser.name}</h6>
               </div>
               <div class="d-lg-none px-4 pb-4 text-center"><a class="btn btn-primary px-5 mb-2" href="#account-menu" data-bs-toggle="collapse"><i class="ai-menu me-2"></i>Account menu</a></div>

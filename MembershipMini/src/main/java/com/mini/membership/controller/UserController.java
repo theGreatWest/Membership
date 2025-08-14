@@ -55,7 +55,6 @@ public class UserController {
 //	로그인
 	@PostMapping("/sign_in")
 	public String signIn(
-			Model model, 
 			HttpSession session, 
 			@RequestParam String email,
 	        @RequestParam String password
@@ -77,24 +76,18 @@ public class UserController {
 		logger.info(">> [로그인 성공]");
 		session.setAttribute("signInUser", result); // 로그인 정보 session에 저장 
 		
-		model.addAttribute("id", result.getUserId());
-		model.addAttribute("name", result.getName());
-		model.addAttribute("password", result.getPassword());
-		model.addAttribute("email", result.getEmail());
-		model.addAttribute("photo", result.getPhoto());
-		
 		List<Car> cars = service.getCars(result.getUserId()); 
-		model.addAttribute("carNum", cars.size());
+		session.setAttribute("carNum", cars.size());
 		
 		List<Card> cards = service.getCards(result.getUserId());
-		model.addAttribute("cards", cards);
+		session.setAttribute("cards", cards);
 		
 		List<Point> points = service.getPoints(result.getUserId());
 		int totPoint = 0;
 		for(Point obj : points) {
 			totPoint += obj.getAmount();
 		}
-		model.addAttribute("totPoint", totPoint);
+		session.setAttribute("totPoint", totPoint);
 		
 		return "jsps/my_page";
 	}

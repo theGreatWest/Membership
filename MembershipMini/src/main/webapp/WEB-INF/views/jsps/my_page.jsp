@@ -169,7 +169,11 @@ response.setDateHeader("Expires", 0);
           <div class="col-lg-4 mb-4 mb-lg-0">
             <div class="bg-light rounded-3 shadow-lg">
               <div class="px-4 py-4 mb-1 text-center">
-                <img class="d-block rounded-circle mx-auto my-2" src="${path}/resources/img/membership/${sessionScope.signInUser.photo}" width="80" style="border: 3px solid #002C5F;">
+                
+                <a href="${path}/go_my_page">
+			        <img class="d-block rounded-circle mx-auto my-2" src="${path}/resources/img/membership/${sessionScope.signInUser.photo}" width="80" style="border: 3px solid #002C5F;">
+			    </a>
+                
                 <h6 class="mb-0 pt-1">${sessionScope.signInUser.name }</h6>
               </div>
               <div class="d-lg-none px-4 pb-4 text-center"><a class="btn btn-primary px-5 mb-2" href="#account-menu" data-bs-toggle="collapse"><i class="ai-menu me-2"></i>Account menu</a></div>
@@ -204,7 +208,7 @@ response.setDateHeader("Expires", 0);
                     <div class="card border-0 shadow-sm h-100">
                       <div class="card-body text-center">
                         <h6 class="text-muted mb-2">나의 블루멤버스 포인트</h6>
-                        <h4 class="mb-0 fw-bold" style="color: #2468b6;">${totPoint }P</h4>
+                        <h4 class="mb-0 fw-bold" style="color: #2468b6;">${sessionScope.totPoint }P</h4>
                       </div>
                     </div>
                   </a>
@@ -214,7 +218,7 @@ response.setDateHeader("Expires", 0);
                     <div class="card border-0 shadow-sm h-100">
                       <div class="card-body text-center">
                         <h6 class="text-muted mb-2">나의 현대자동차</h6>
-                        <h4 class="mb-0 fw-bold" style="color: #2468b6;">${carNum }대</h4>
+                        <h4 class="mb-0 fw-bold" style="color: #2468b6;">${sessionScope.carNum }대</h4>
                       </div>
                     </div>
                   </a>
@@ -276,7 +280,7 @@ response.setDateHeader("Expires", 0);
                         </thead>
                         <tbody>
                         
-							<c:forEach var="card" items="${cards}" varStatus="status">
+							<c:forEach var="card" items="${sessionScope.cards }" varStatus="status">
 							    <!-- data-type을 먼저 계산 -->
 							    <c:set var="dataType" value="${card.cardType eq '비신용카드' ? 'blue-members' : (card.cardType eq '신용카드' ? 'credit' : (card.cardType eq '체크카드' ? 'check' : ''))}" />
 							
