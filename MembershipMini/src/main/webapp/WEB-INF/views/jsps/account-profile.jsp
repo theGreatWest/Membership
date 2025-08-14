@@ -196,7 +196,7 @@ response.setDateHeader("Expires", 0);
                         <label for="avatar-upload" class="btn btn-light shadow btn-sm mb-2">
                           <i class="ai-refresh-cw me-2"></i>대표 이미지 변경
                         </label>
-                        <input type="file" id="avatar-upload" class="d-none" accept="image/jpeg, image/png, image/gif">
+                        <input type="file" id="avatar-upload" class="d-none" accept="image/jpeg, image/png, image/gif" name="avatar-upload">
                         <div class="p mb-0 fs-ms" style="color: white;">Upload JPG, GIF or PNG image. 300 x 300 required.</div>
                       </div>
                     </div>
@@ -206,14 +206,14 @@ response.setDateHeader("Expires", 0);
                       <div class="mb-3 pb-1">
                         <label class="form-label px-0" for="account-username">사용자 이름</label>
                         <div class="input-group">
-                          <input class="form-control" type="text" id="account-username">
+                          <input class="form-control" type="text" id="account-username" name="account-username">
                         </div>
                       </div>
                     </div>
                     <div class="col-sm-6">
                       <div class="mb-3 pb-1">
                         <label class="form-label px-0" for="account-password">새비밀번호</label>
-                        <input class="form-control" type="password" id="account-password">
+                        <input class="form-control" type="password" id="account-password" name="account-password">
                       </div>
                     </div>
                     <div class="col-sm-6">
