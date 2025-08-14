@@ -1,5 +1,6 @@
 package com.mini.membership.controller;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,6 +10,8 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.mini.membership.HomeController;
 import com.mini.membership.dto.Car;
@@ -41,6 +45,9 @@ public class UserController {
 	
 	@Autowired
     private EmailService emailService;
+	
+	@Autowired
+    private ResourceLoader resourceLoader;
 	
 	private Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
@@ -137,7 +144,7 @@ public class UserController {
 		user.setPassword(service.encodePassword(newPWD));
 			
 		// 새 비밀번호 db에 저장 
-		service.updateNewPWD(user);
+		service.updateUserInfo(user);
 			
 		// 새 비밀번호 프론트로 
 		response.put("success", true);
@@ -146,5 +153,62 @@ public class UserController {
 		    
 		return ResponseEntity.ok(response);
 	}
+	
+//	회원 정보 변경
+	@PostMapping("/update_user_info")
+	public String updateProfile(
+			HttpSession session,
+			Model model,
+	        @RequestParam("account-username") String username,
+	        @RequestParam(value = "avatar-upload", required = false) MultipartFile avatarFile,
+	        @RequestParam("account-password") String newPassword
+	) {
+		// 이미지 저장
+        Resource resource = resourceLoader.getResource("classpath:/resources/img/membership/");
+        String saveFileName = "None";
+        try {
+        	File uploadDir = resource.getFile();
+
+            saveFileName = username + "_img.png";
+            File saveFile = new File(uploadDir, saveFileName);
+
+            avatarFile.transferTo(saveFile);
+        }catch(Exception e) {}
+
+        
+        // 세션에서 "signInUser" 정보 불러오기
+        User user = (User) session.getAttribute("signInUser");
+        
+        // 사용자 이름, 비밀번호, 파일명 업데이트
+        user.setPassword(service.encodePassword(newPassword));
+        user.setName(username);
+        user.setPhoto(saveFileName);
+        service.updateUserInfo(user);
+        
+        // 사용자 정보 담기
+        model.addAttribute("id", user.getUserId());
+		model.addAttribute("name", user.getName());
+		model.addAttribute("password", user.getPassword());
+		model.addAttribute("email", user.getEmail());
+		model.addAttribute("photo", user.getPhoto());
+		
+		List<Car> cars = service.getCars(user.getUserId());
+		model.addAttribute("carNum", cars.size());
+		
+		List<Card> cards = service.getCards(user.getUserId());
+		model.addAttribute("cards", cards);
+		
+		List<Point> points = service.getPoints(user.getUserId());
+		int totPoint = 0;
+		for(Point obj : points) {
+			totPoint += obj.getAmount();
+		}
+		model.addAttribute("totPoint", totPoint);
+       
+        
+        return "jsps/my_page";
+		
+	}
+	
 	
 }

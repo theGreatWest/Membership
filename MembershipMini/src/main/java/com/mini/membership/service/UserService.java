@@ -100,9 +100,4 @@ public class UserService {
         }
         return new String(array);
     }
-    
-//  새 비밀번호 db에 저장
-	public void updateNewPWD(User userInput) {
-		userMapper.updateUser(userInput);
-	}
 }
