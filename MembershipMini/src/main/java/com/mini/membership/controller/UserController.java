@@ -82,7 +82,7 @@ public class UserController {
 		model.addAttribute("email", result.getEmail());
 		model.addAttribute("photo", result.getPhoto());
 		
-		List<Car> cars = service.getCars(result.getUserId());
+		List<Car> cars = service.getCars(result.getUserId()); 
 		model.addAttribute("carNum", cars.size());
 		
 		List<Card> cards = service.getCards(result.getUserId());
@@ -159,7 +159,7 @@ public class UserController {
 	public String updateProfile(
 			HttpSession session,
 			Model model,
-	        @RequestParam("account-username") String username,
+	        @RequestParam(value = "account-username", required = false) String username,
 	        @RequestParam(value = "avatar-upload", required = false) MultipartFile avatarFile,
 	        @RequestParam("account-password") String newPassword
 	) {
