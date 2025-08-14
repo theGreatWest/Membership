@@ -50,17 +50,17 @@ public class HomeController {
 		return "home";
 	}
 	
-	@GetMapping("/get_new_password")
+	@RequestMapping("/get_new_password")
 	public String getNewPassword(Locale locale, Model model) {		
 		return "jsps/password-recovery";
 	}
 	
-	@GetMapping("/go_account")
+	@RequestMapping("/go_account")
 	public String goAccount() {	
 		return "jsps/account-profile";
 	}
 	
-	@GetMapping("/go_my_page")
+	@RequestMapping("/go_my_page")
 	public String goMyPage() {	
 		return "jsps/my_page";
 	}
