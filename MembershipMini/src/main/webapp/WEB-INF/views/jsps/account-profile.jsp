@@ -194,6 +194,7 @@ response.setDateHeader("Expires", 0);
             <div class="d-flex flex-column h-100 bg-light rounded-3 shadow-lg p-4">
               <div class="py-2 p-md-3">
                 <div class="d-sm-flex align-items-center justify-content-between pb-4 text-center text-sm-start">
+                  <h1 class="h3 mb-2 text-nowrap">계정 관리</h1>
                   <a id="remove-account-btn" class="btn btn-link text-danger fw-medium btn-sm mb-2" href="#">
 					    <i class="ai-trash-2 fs-base me-2"></i>계정 삭제
 					</a>
