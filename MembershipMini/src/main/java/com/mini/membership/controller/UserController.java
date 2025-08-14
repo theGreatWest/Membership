@@ -220,7 +220,7 @@ public class UserController {
 		
 		session.invalidate();
 		
-		return "home";
+		return "redirect:/";
 	}
 	
 }
